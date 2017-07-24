@@ -23,7 +23,7 @@ var FCM = require('fcm-node');
 		var message = {
 			to : req.param('fcm_token'),
 			priority : 'high',
-			notification : {
+			data : {
 				title : "asdf",
 				body : "asdf"
 			}
