@@ -25,7 +25,8 @@ var UserSchema = new schema({
 			text : String
 		},
 		alarm : Boolean
-	}
+	},
+	online : Boolean
 });
 
 mongoose.connect("mongodb://localhost:27017/sunrinton", function(err){

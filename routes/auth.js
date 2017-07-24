@@ -25,7 +25,8 @@ function init(app, User){
 								value : false,
 								text : ""
 							},
-							alarm : false
+							alarm : false,
+							online: true
 						}
 					});
 					user.save(function(err){
