@@ -96,4 +96,5 @@ app.get('/auth/facebook/token', passport.authenticate('facebook-token'), functio
 //		})
 //	})
 //}
+}
 module.exports = init;
