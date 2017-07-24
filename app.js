@@ -37,6 +37,8 @@ mongoose.connect("mongodb://localhost:27017/sunrinton", function(err){
 
 var User = mongoose.model('users', UserSchema);
 
+require('./routes/auth.js')(app, User);
+require('./routes/alert.js')(app, User);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
