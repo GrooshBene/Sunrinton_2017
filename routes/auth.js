@@ -1,57 +1,30 @@
-function init(app, User){
-	var passport = require('passport');
-	var KakaoStrategy = require('passport-kakao').Strategy;
-	var kakao_token = require('passport-kakao-token')
-	passport.use(new KakaoStrategy({
-		clientID : "e3465718c3e6bed556d26e1ea1ee562c",
-		callbackURL : "http://localhost:3000/oauth"
-	}, function(accessToken, refreshToken, profile, done){
-			User.findOne({
-				_id : profile.id
-			}, function(err, user){
-				if(err){
-					return done(err);
-				}
-				if(!user){
-					user = new User({
-						_id : profile.id,
-						name : profile._json.name,
-						kakao_token : "",
-						options : {
-							feature_lock : false,
-							vibration : false,
-							flash : false,
-							tts : {
-								value : false,
-								text : ""
-							},
-							alarm : false,
-							online: true
-						}
-					});
-					user.save(function(err){
-						if(err){
-							console.log(err);
-						}
-						else{
-							done(null, profile);
-						}
-					});
-				}
-				else if(user){
-					done(null, profile);
-				}
-			})
-
-		}));
-
-	app.get('/auth/kakao/token', passport.authenticate('kakao_token'), function(req, res){
-		if(req.user){
-			//success
-		}
-		else{
-			//fail
-		}
+function init(app, User){	
+	app.get('/auth/register', function(req, res){
+		var user = new User({
+			_id : req.param('id'),
+			thumbnail : req.param('thumbnail'),
+			name : req.param('name'),
+			kakao_token : "",
+			options : {
+				feature_lock : false,
+				vibration : false,
+				flash : false,
+				tts : {
+					value : false,
+					text : false
+				},
+				alarm : false
+			},
+			online : false
+		});
+		user.save(function(err){
+			if(err){
+				console.log(err);
+				res.send(401, "/auth/register Error");
+			}
+			console.log("User "+ user.name + " Saved");
+			res.send(200, user);
+		})
 	})
 }
 module.exports = init;

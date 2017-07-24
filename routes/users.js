@@ -1,9 +1,24 @@
-var express = require('express');
-var router = express.Router();
+function init(app, User){
+	app.post('/user/online', function(req, res){
+		User.findOneAndUpdate({_id : req.param('id')}, {online : true}, {new : true},function(err, result){
+			if(err){
+				console.log(err);
+				res.send(401, "/user/online Update Error");
+			}
+			res.send(200, result);
+		});
+	});
 
-/* GET users listing. */
-router.get('/', function(req, res) {
-  res.send('respond with a resource');
-});
+	app.post('/user/offline', function(req, res){
+		User.findOneAndUpdate({_id : req.param('id')}, {online : false}, {new : true}, function(err, result){
+			if(err){
+				console.log(err);
+				res.send(401, "/user/offline update error");
+			}
+			res.send(200, result);
+		});
+	});
 
-module.exports = router;
+
+}
+module.exports = init;

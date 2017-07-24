@@ -15,6 +15,7 @@ var app = express();
 var UserSchema = new schema({
 	_id : String,
 	name : String,
+	thumbnail : String,
 	kakao_token : String,
 	options : {
 		feature_lock : Boolean,
@@ -40,6 +41,7 @@ var User = mongoose.model('users', UserSchema);
 
 require('./routes/auth.js')(app, User);
 require('./routes/alert.js')(app, User);
+require('./routes/users.js')(app, User);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -52,7 +54,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/users', users);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {
