@@ -29,7 +29,7 @@ function init(app, User){
 			}
 		};
 
-		fcm.send(message, function(err, response){
+		fcm.send(message, function(err, result){
 			if(err){
 				console.log("Something Has Wrong!");
 			}
