@@ -83,7 +83,7 @@ var FCM = require('fcm-node');
 
 
 	app.post('/user/list', function(req, res){
-		User.find({}, function(err, result){
+		User.find({_id : {$ne : req.param('id')}}, function(err, result){
 			if(err){
 				console.log(err);
 				res.send(401, "/user/list update error");

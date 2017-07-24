@@ -24,7 +24,7 @@ function init(app, User){
     	        if(!user){
     	            var user = new User({
 			_id : profile.id,
-			thumbnail : profile.photos[0],
+			thumbnail : profile.photos[0].value,
 			name : profile.displayName,
 			terror_target : "",
 			options : {
