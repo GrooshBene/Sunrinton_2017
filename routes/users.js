@@ -18,6 +18,15 @@ var FCM = require('fcm-node');
 			}
 		})
 	}
+	app.post('/user/update/fcm/token', function(req, res){
+		User.findOneAndUpdate({_id : req.param('id')}, {fcm_token : req.param('token')}, {new : true}, function(err, result){
+			if(err){
+				console.log(err);
+				res.send(401, "/user/online Update Error");
+			}
+			res.send(200, result)
+		})
+	})
 
 	app.post('/user/online', function(req, res){
 		User.findOneAndUpdate({_id : req.param('id')}, {online : true}, {new : true},function(err, result){
