@@ -3,14 +3,11 @@ function init(app, User){
 	var serverKey = "";
 	var fcm = new FCM(serverKey);
 
-	function sendPush(fcm_token, Title, content){
+	function sendPush(fcm_token, content){
 		var message = {
 			to : fcm_token,
 			priority : 'high',
-			notification : {
-				title : Title,
-				body : content
-			}
+			data : content
 		};
 		fcm.send(message, function(err, result){
 			if(err){
@@ -21,6 +18,26 @@ function init(app, User){
 			}
 		})
 	}
+
+	app.post('/alert/test', function(req, res){
+		var message = {
+			to : req.param('fcm_token'),
+			priority : 'high',
+			notification : {
+				title : "asdf",
+				body : "asdf"
+			}
+		};
+
+		fcm.send(message, function(err, response){
+			if(err){
+				console.log("Something Has Wrong!");
+			}
+			else{
+				console.log("Successfully Sent : " + result);
+			}
+		})
+	})
 }
 
 module.exports = init;
