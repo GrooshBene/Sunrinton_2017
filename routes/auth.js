@@ -23,9 +23,9 @@ function init(app, User){
     	        }
     	        if(!user){
     	            var user = new User({
-			_id : req.param('id'),
-			thumbnail : req.param('thumbnail'),
-			name : req.param('name'),
+			_id : profile.id,
+			thumbnail : profile.photos,
+			name : profile.displayName,
 			terror_target : "",
 			options : {
 				feature_lock : false,
