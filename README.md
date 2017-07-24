@@ -138,7 +138,8 @@
 
 	>> Requiring params
 
-	none
+	id : User's Id
+
     
     >> Return Values
 
