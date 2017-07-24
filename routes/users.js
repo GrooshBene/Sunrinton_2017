@@ -20,5 +20,15 @@ function init(app, User){
 	});
 
 
+	app.post('/user/list', function(req, res){
+		User.find({}, function(err, result){
+			if(err){
+				console.log(err);
+				res.send(401, "/user/list update error");
+			}
+			res.send(200, result);
+		});
+	});
+
 }
 module.exports = init;
