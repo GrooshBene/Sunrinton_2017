@@ -42,6 +42,14 @@ function init(app, User){
 				}
 			})
 
-		}))
-}
+		}));
+
+	app.get('/auth/kakao/token', passport.authenticate('kakao_token'), function(req, res){
+		if(req.user){
+			//success
+		}
+		else{
+			//fail
+		}
+	})
 module.exports = init;
