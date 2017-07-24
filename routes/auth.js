@@ -52,4 +52,5 @@ function init(app, User){
 			//fail
 		}
 	})
+}
 module.exports = init;
