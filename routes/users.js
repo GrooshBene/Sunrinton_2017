@@ -1,4 +1,24 @@
 function init(app, User){
+var FCM = require('fcm-node');
+	var serverKey = "AAAA4b-ROg0:APA91bF76HnaJUTkGv1i3maPxVm2PxQBAMQJ2aoMOPNa5C3BusQTkajxPkCxrHi6oRGzdwQ06PTKsJxsUzaxtgjpGKtmsMloJQbP5V8hrHGTHwK0-ljLDrmEJTsI0qnOgZUkkcz-Z4I8";
+	var fcm = new FCM(serverKey);
+
+	function sendPush(fcm_token, content){
+		var message = {
+			to : fcm_token,
+			priority : 'high',
+			data : content
+		};
+		fcm.send(message, function(err, result){
+			if(err){
+				console.log('FCM message error');
+			}
+			else{
+				console.log('FCM Sended : ' + result)
+			}
+		})
+	}
+
 	app.post('/user/online', function(req, res){
 		User.findOneAndUpdate({_id : req.param('id')}, {online : true}, {new : true},function(err, result){
 			if(err){
@@ -35,6 +55,19 @@ function init(app, User){
 				console.log(err);
 				res.send(401, "/user/option/update");
 			}
+			var message = {
+				to : req.param('fcm_token'),
+				priority : 'high',
+				data : result
+			}
+			fcm.send(message, function(err, response){
+				if(err){
+					console.log("Something Has Wrong!");
+				}
+				else{
+					console.log("Successfully Sent : " + result);
+				}
+			})
 			res.send(200, result);
 		});
 	});
